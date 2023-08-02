@@ -1,5 +1,5 @@
 // модуль по работе с  фотографией
-const SHOWNCOMMENT = 5; //Количество коментариев видные пользователю
+const SHOWNCOMMENT = 5;
 
 const bigPicture = document.querySelector('.big-picture');
 const commentTemplate = document.querySelector('#comment').content.querySelector('.social__comment');
@@ -9,7 +9,7 @@ const commentsShownCountElement = document.querySelector('.social__comment-count
 const commentsPartCountElement = commentsShownCountElement.querySelector('.comments-part');
 const commentsCountElement = commentsShownCountElement.querySelector('.comments-count');
 const commentsLoad = document.querySelector('.comments-loader');
-//рендерим коментарий
+
 const createComment = (comment)=>{
   const commentObject = commentTemplate.cloneNode(true);
   commentObject.querySelector('.social__picture').src = comment.avatar;
@@ -17,7 +17,7 @@ const createComment = (comment)=>{
   commentObject.querySelector('.social__text').textContent = comment.message;
   return commentObject;
 };
-//функция по отображению комментария
+
 const renderComments = (comments) => {
   let commentShown = 0;
   return ()=> {
@@ -47,7 +47,7 @@ const renderBigPicture = (item) => {
   bigPicture.querySelector('.comments-count').textContent = item.comments.length;
   bigPicture.querySelector('.social__caption').textContent = item.description;
   const onCommentsLoaderClick = renderComments(item.comments);
-  //Заполняем коментарий
+
   commentStorage.comments = onCommentsLoaderClick(item.comments);
   commentsLoad .addEventListener('click',onCommentsLoaderClick);
 };
@@ -76,7 +76,7 @@ closePhoto.addEventListener('click',() => {
 
 export{renderBigPicture,bigPicture,openBigPicture,renderComments};
 
-//модуль по изменению масштаба изображения
+
 const STEP = 25;
 const MIN = 25;
 const MAX = 100;

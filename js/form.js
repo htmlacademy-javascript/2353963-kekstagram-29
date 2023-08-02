@@ -15,28 +15,27 @@ const commentsField = uploadForm.querySelector('.text__description');
 const hashtagsField = uploadForm.querySelector('.text__hashtags');
 const submitFormButton = document.querySelector('.img-upload__submit');
 
-//функция по проверке длины комментариев
-const validateComments = (str)=>controlStringLenght(str,140);
-//функция преобразования строки ввода хэштегов в массив
 
-//создание объекта библиотеки pristine
+const validateComments = (str)=>controlStringLenght(str,140);
+
+
+
 const pristine = new Pristine(uploadForm,{
   classTo: 'img-upload__field-wrapper',
   errorTextParent: 'img-upload__field-wrapper'
 });
 const convertHashtagString = (str)=> str?.toLowerCase().split(' ').filter((tag) => tag !== '');
 
-//использование библиотеки Pristine
-//проверка хэш-тегов
-const validateCountHashtags = (tags) =>convertHashtagString(tags).length <= TAGSCOUNT;//проверка на количество хэштегов
+
+const validateCountHashtags = (tags) =>convertHashtagString(tags).length <= TAGSCOUNT;
 const validateRegexHashtags = (tags) =>{
   if (tags === '') {
     return true;
   }
-  const regex = new RegExp(`^#[a-zа-яё0-9]{1,${MAX_HASHTAG_LENGTH}}$`, 'i'); //рег-ное выражение
+  const regex = new RegExp(`^#[a-zа-яё0-9]{1,${MAX_HASHTAG_LENGTH}}$`, 'i');
   const convertStr = convertHashtagString(tags);
   return convertStr.every((tag) =>(regex.test(tag)));
-};//проверка на регулярное выражение
+};
 const validateUnickHashtags = (tags) =>{
   const toLowerCase = convertHashtagString(tags).map((tag)=>tag.toLowerCase());
   return toLowerCase.length === new Set(toLowerCase).size;
@@ -59,7 +58,7 @@ pristine.addValidator(
   '!!!введён не уникальный хэштег',
   1,
   true);
-//проверка комментариев
+
 pristine.addValidator(
   commentsField,
   validateComments,
@@ -74,7 +73,6 @@ const unblockSubmitButton = () => {
   submitFormButton.textContent = 'Опубликовать';
 };
 
-//нажатие кнопки отправыки формы
 const setOnFormSubmit = (cb) => {
   uploadForm.addEventListener('submit', async (evt) => {
     evt.preventDefault();
@@ -85,7 +83,7 @@ const setOnFormSubmit = (cb) => {
     }
   });
 };
-//закрытие формы для выбора фотографии
+
 const hideNewPhoto = ()=>{
   imgUploadForm.classList.add('hidden');
   document.body.classList.remove('modal-open');
@@ -96,7 +94,7 @@ const hideNewPhoto = ()=>{
   destroySlider();
   pristine.reset();
 };
-//отрытие формы для выбора фотографии
+
 const openNewPhoto = ()=>{
   imgUploadForm.classList.remove('hidden');
   document.body.classList.add('modal-open');
@@ -105,7 +103,6 @@ const openNewPhoto = ()=>{
   setEffectsSlider();
   setOnFormSubmit(async (data) => {
     try {
-      //installForm();
       await sendData(data);
       hideNewPhoto();
       showSuccessMessage();
@@ -124,12 +121,11 @@ function onDocumentKeydown(evt){
   }
 }
 
-
 const onOpenButton = ()=>openNewPhoto();
 const onCloseButton = ()=>hideNewPhoto();
-//установка параметров формы
+
 const installForm = ()=>{
-  //изменение поля  для выбора нового фото
+
   imgUploadInputField.addEventListener('change',onOpenButton);
   closeimgButton.addEventListener('click',onCloseButton);
   pristine.addValidator(hashtagsField,
@@ -137,7 +133,6 @@ const installForm = ()=>{
     '!!!введён не уникальный хэштег');
 };
 
-//отмена esc в момент нахождения фокуса в поле комментариев
 commentsField.addEventListener('keydown',(evt)=>{
   if(evt.key === 'Escape'){
     evt.stopPropagation();
