@@ -1,74 +1,34 @@
-const PHOTO_DESCRIPTIONS = [
-  'Пейзаж',
-  'Дорогая машина',
-  'Страх',
-  'Рабочий стол',
-  'Озеро',
-  'Морской закат',
-  'Дом'
-];
+const MESSAGE_SHOW_TIME = 5000;
 
-const MESSAGES = [
-  'Всё отлично!',
-  'В целом всё неплохо. Но не всё.'
-];
+const showMessage = (message) => {
+  const messageContainer = document.createElement('div');
+  messageContainer.style.zIndex = '100';
+  messageContainer.style.position = 'absolute';
+  messageContainer.style.left = '0';
+  messageContainer.style.top = '0';
+  messageContainer.style.right = '0';
+  messageContainer.style.padding = '10px 3px';
+  messageContainer.style.fontSize = '10px';
+  messageContainer.style.textAlign = 'center';
+  messageContainer.style.backgroundColor = 'red';
 
-const NAMES = [
-  'Костя',
-  'Олег',
-  'Михаил',
-  'Мурат',
-  'Александр',
-  'Кристина',
-  'Владимир',
-  'Петр'
-];
+  messageContainer.textContent = message;
 
-const PHOTOS_COUNT = 25;
+  document.body.append(messageContainer);
 
-const getRandomInteger = (a, b) => {
-  const lower = Math.ceil(Math.min(a, b));
-  const upper = Math.floor(Math.max(a, b));
-  const result = Math.random() * (upper - lower + 1) + lower;
-
-  return Math.floor(result);
+  setTimeout(() => {
+    messageContainer.remove();
+  }, MESSAGE_SHOW_TIME);
 };
+const debounce = (callback, timeoutDelay = 500) => {
+  let timeoutId;
 
-function createRandomIdFromRangeGenerator (min, max) {
-  const previousValues = [];
-
-  return function () {
-    let currentValue = getRandomInteger(min, max);
-    if (previousValues.length >= (max - min + 1)) {
-      return null;
-    }
-    while (previousValues.includes(currentValue)) {
-      currentValue = getRandomInteger(min, max);
-    }
-    previousValues.push(currentValue);
-
-    return currentValue;
+  return (...rest) => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
   };
-}
+};
+// Функция 1  проверки длины строки
+const controlStringLenght = (str,length)=>str.length <= length;
 
-
-const createComment = () => ({
-  id: createRandomCommentId(),
-  avatar: `img/avatar-${getRandomInteger(1, 6)}.svg`,
-  message: getRandomArrayElement(MESSAGES),
-  name: getRandomArrayElement(NAMES),
-});
-
-const createPhotoDescription = () => ({
-  id: createRandomDescriptionId(),
-  url: `photos/${createRandomPhotoId()}.jpg`,
-  description: getRandomArrayElement(PHOTO_DESCRIPTIONS),
-  likes: getRandomInteger(15, 200),
-  comments: Array.from({length: getRandomInteger(0, 30)}, createComment),
-});
-
-
-
-
-
-export {PHOTO_DESCRIPTIONS,MESSAGES,NAMES,PHOTOS_COUNT,getRandomInteger,createRandomIdFromRangeGenerator,createComment,createPhotoDescription};
+export {controlStringLenght,showMessage,debounce};
