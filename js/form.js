@@ -94,7 +94,7 @@ const hideNewPhoto = ()=>{
   destroySlider();
   pristine.reset();
 };
-//отрытие формы для выбора фотографии
+
 const openNewPhoto = ()=>{
   imgUploadForm.classList.remove('hidden');
   document.body.classList.add('modal-open');
@@ -103,7 +103,6 @@ const openNewPhoto = ()=>{
   setEffectsSlider();
   setOnFormSubmit(async (data) => {
     try {
-      //installForm();
       await sendData(data);
       hideNewPhoto();
       showSuccessMessage();
@@ -121,7 +120,6 @@ function onDocumentKeydown(evt){
     hideNewPhoto();
   }
 }
-
 
 const onOpenButton = ()=>openNewPhoto();
 const onCloseButton = ()=>hideNewPhoto();
