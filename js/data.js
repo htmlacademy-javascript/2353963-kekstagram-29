@@ -25,7 +25,7 @@ const uploadData = (route, errText, method = Methods.GET, body = null) =>
 
 const getData = () => uploadData(Direction.GET_DATA, ErrorText.GET_DATA);
 
-const sendData = (body) => uploadData(Direction.SEND_DATA, ErrorText.SEND_DATA, Method.POST, body);
+const sendData = (body) => uploadData(Direction.SEND_DATA, ErrorText.SEND_DATA, Methods.POST, body);
 
 export { getData, sendData };
 

@@ -127,9 +127,9 @@ function onDocumentKeydown(evt){
 
 const onOpenButton = ()=>openNewPhoto();
 const onCloseButton = ()=>hideNewPhoto();
-//установка параметров формы
+
 const installForm = ()=>{
-  //изменение поля  для выбора нового фото
+
   imgUploadInputField.addEventListener('change',onOpenButton);
   closeimgButton.addEventListener('click',onCloseButton);
   pristine.addValidator(hashtagsField,
@@ -137,7 +137,6 @@ const installForm = ()=>{
     '!!!введён не уникальный хэштег');
 };
 
-//отмена esc в момент нахождения фокуса в поле комментариев
 commentsField.addEventListener('keydown',(evt)=>{
   if(evt.key === 'Escape'){
     evt.stopPropagation();
