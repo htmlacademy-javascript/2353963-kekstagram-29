@@ -2,15 +2,15 @@ import {controlStringLenght } from './util.js';
 import{resetEffects,setEffectsSlider,destroySlider} from './effect.js';
 import { initScaleElement,resetScale } from './big-picture.js';
 import { showSuccessMessage,showErrorMessage } from './messages.js';
-import { sendData } from './data.js';
+import { sendData} from './data.js';
 
 const TAGSCOUNT = 5;
 const MAX_HASHTAG_LENGTH = 19;
 
-const imgUploadInputField = document.querySelector('.img-upload__input');
+const imgUploadField = document.querySelector('.img-upload__input');
 const imgUploadForm = document.querySelector('.img-upload__overlay');
-const uploadForm = document.querySelector('.img-upload__form');
-const closeimgButton = document.querySelector('.img-upload__cancel');
+const loadForm = document.querySelector('.img-upload__form');
+const closeimg = document.querySelector('.img-upload__cancel');
 const commentsField = uploadForm.querySelector('.text__description');
 const hashtagsField = uploadForm.querySelector('.text__hashtags');
 const submitFormButton = document.querySelector('.img-upload__submit');
@@ -76,12 +76,12 @@ const unblockSubmitButton = () => {
 
 //нажатие кнопки отправыки формы
 const setOnFormSubmit = (cb) => {
-  uploadForm.addEventListener('submit', async (evt) => {
+  loadForm.addEventListener('submit', async (evt) => {
     evt.preventDefault();
     const isValid = pristine.validate();
     if (isValid) {
       blockSubmitButton();
-      cb(new FormData(uploadForm));
+      cb(new FormData(loadForm));
     }
   });
 };
@@ -90,7 +90,7 @@ const hideNewPhoto = ()=>{
   imgUploadForm.classList.add('hidden');
   document.body.classList.remove('modal-open');
   document.removeEventListener('keydown',onDocumentKeydown);
-  uploadForm.reset();
+  loadForm.reset();
   resetScale();
   resetEffects();
   destroySlider();
@@ -130,7 +130,7 @@ const onCloseButton = ()=>hideNewPhoto();
 //установка параметров формы
 const installForm = ()=>{
   //изменение поля  для выбора нового фото
-  imgUploadInputField.addEventListener('change',onOpenButton);
+  imgUploadField.addEventListener('change',onOpenButton);
   closeimgButton.addEventListener('click',onCloseButton);
   pristine.addValidator(hashtagsField,
     validateUnickHashtags,
