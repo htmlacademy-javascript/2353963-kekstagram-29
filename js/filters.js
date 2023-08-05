@@ -50,5 +50,4 @@ const removeDebounce = (pictures) => {
     }, TIMEOUT)();
   });
 };
-
 export { removeDebounce, showFilters };

@@ -1,4 +1,4 @@
-// модуль по работе с  фотографией
+
 const SHOWNCOMMENT = 5;
 
 const bigPicture = document.querySelector('.big-picture');

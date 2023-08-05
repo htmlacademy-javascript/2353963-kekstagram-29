@@ -123,5 +123,4 @@ const destroySlider = ()=>{
   sliderElement.noUiSlider.destroy();
   effectPhoto.removeEventListener('change', onEffectsChange);
 };
-
 export {resetEffects, setEffectsSlider,destroySlider};

@@ -14,7 +14,6 @@ const closeimgButton = document.querySelector('.img-upload__cancel');
 const commentsField = uploadForm.querySelector('.text__description');
 const hashtagsField = uploadForm.querySelector('.text__hashtags');
 const submitFormButton = document.querySelector('.img-upload__submit');
-
 const validateComments = (str)=>controlStringLenght(str,140);
 
 const pristine = new Pristine(uploadForm,{
