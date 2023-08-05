@@ -1,11 +1,19 @@
 const PHOTO_EFFECTS = [
   {
+    name : 'none',
+    style : 'none',
+    min : 0 ,
+    max : 100 ,
+    step : 1,
+    unit : '',
+  },
+  {
     name : 'chrome',
     style : 'grayscale',
     min : 0 ,
     max : 1,
     step : 0.1,
-    unit : '',
+    unit : ''
   },
   {
     name : 'sepia',
@@ -39,14 +47,7 @@ const PHOTO_EFFECTS = [
     step : 0.1,
     unit : '',
   },
-  {
-    name : 'none',
-    style : 'none',
-    min : 0 ,
-    max : 100 ,
-    step : 1,
-    unit : '',
-  },
+
 ];
 const BEGIN_EFFECT = PHOTO_EFFECTS[0];
 let chosenEffect = BEGIN_EFFECT;
