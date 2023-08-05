@@ -15,10 +15,7 @@ const commentsField = uploadForm.querySelector('.text__description');
 const hashtagsField = uploadForm.querySelector('.text__hashtags');
 const submitFormButton = document.querySelector('.img-upload__submit');
 
-
 const validateComments = (str)=>controlStringLenght(str,140);
-
-
 
 const pristine = new Pristine(uploadForm,{
   classTo: 'img-upload__field-wrapper',
@@ -94,7 +91,7 @@ const hideNewPhoto = ()=>{
   destroySlider();
   pristine.reset();
 };
-//отрытие формы для выбора фотографии
+
 const openNewPhoto = ()=>{
   imgUploadForm.classList.remove('hidden');
   document.body.classList.add('modal-open');
@@ -103,7 +100,6 @@ const openNewPhoto = ()=>{
   setEffectsSlider();
   setOnFormSubmit(async (data) => {
     try {
-      //installForm();
       await sendData(data);
       hideNewPhoto();
       showSuccessMessage();
@@ -122,7 +118,6 @@ function onDocumentKeydown(evt){
   }
 }
 
-
 const onOpenButton = ()=>openNewPhoto();
 const onCloseButton = ()=>hideNewPhoto();
 
@@ -140,9 +135,5 @@ commentsField.addEventListener('keydown',(evt)=>{
     evt.stopPropagation();
   }
 });
-hashtagsField.addEventListener('keydown',(evt) => {
-  if(evt.key === 'Escape'){
-    evt.stopPropagation();
-  }
-});
+
 export {installForm,setOnFormSubmit,unblockSubmitButton,hideNewPhoto};

@@ -9,6 +9,15 @@ const commentsShownCountElement = document.querySelector('.social__comment-count
 const commentsPartCountElement = commentsShownCountElement.querySelector('.comments-part');
 const commentsCountElement = commentsShownCountElement.querySelector('.comments-count');
 const commentsLoad = document.querySelector('.comments-loader');
+const STEP = 25;
+const MIN = 25;
+const MAX = 100;
+const START = 100;
+const loadElement = document.querySelector('.img-upload');
+const lessenBtnElement = loadElement.querySelector('.scale__control--smaller');
+const raisingBtnElement = loadElement.querySelector('.scale__control--bigger');
+const scaleElement = loadElement.querySelector('.scale__control--value');
+const imgElement = loadElement.querySelector('.img-upload__preview img');
 
 const createComment = (comment)=>{
   const commentObject = commentTemplate.cloneNode(true);
@@ -56,6 +65,7 @@ const hideBigPicture = () =>{
   document.body.classList.remove('modal-open');
   document.removeEventListener('keydown',onDocumentKeydown);
 };
+closePhoto.addEventListener('click',hideBigPicture);
 function onDocumentKeydown(evt){
   if (evt.key === 'Escape') {
     evt.preventDefault();
@@ -70,24 +80,6 @@ const openBigPicture = ()=>{
   document.body.classList.add('modal-open');
   document.addEventListener('keydown',onDocumentKeydown);
 };
-closePhoto.addEventListener('click',() => {
-  hideBigPicture();
-});
-
-export{renderBigPicture,bigPicture,openBigPicture,renderComments};
-
-
-const STEP = 25;
-const MIN = 25;
-const MAX = 100;
-const START = 100;
-
-const loadElement = document.querySelector('.img-upload');
-const lessenBtnElement = loadElement.querySelector('.scale__control--smaller');
-const raisingBtnElement = loadElement.querySelector('.scale__control--bigger');
-const scaleElement = loadElement.querySelector('.scale__control--value');
-const imgElement = loadElement.querySelector('.img-upload__preview img');
-
 const scaleImg = (value)=>{
   scaleElement.value = `${value}%`;
   imgElement.style.transform = `scale(${value / 100})`;
@@ -119,5 +111,5 @@ const initScaleElement = ()=>{
   lessenBtnElement.addEventListener('click',onlessenBtnClick);
   raisingBtnElement.addEventListener('click',onraisingBtnClick);
 };
-export{resetScale,initScaleElement};
+export{resetScale,initScaleElement,renderBigPicture,bigPicture,openBigPicture,renderComments};
 

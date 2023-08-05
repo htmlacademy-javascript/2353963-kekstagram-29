@@ -20,7 +20,7 @@ const showMessage = (message) => {
     messageContainer.remove();
   }, MESSAGE_SHOW_TIME);
 };
-const debounce = (callback, timeoutDelay = 500) => {
+const debounce = (callback, timeoutDelay) => {
   let timeoutId;
 
   return (...rest) => {
