@@ -1,3 +1,11 @@
+const imgPreview = document.querySelector('.img-upload__preview img');
+const effectPhoto = document.querySelector('.effects');
+const sliderElement = document.querySelector('.effect-level__slider');
+const sliderContainerElement = document.querySelector('.img-upload__effect-level');
+const effectLevelElement = document.querySelector('.effect-level__value');
+
+const renderSlider = () => sliderContainerElement.classList.remove('hidden');
+const hideSlider = () => sliderContainerElement.classList.add('hidden');
 const PHOTO_EFFECTS = [
   {
     name : 'none',
@@ -51,16 +59,7 @@ const PHOTO_EFFECTS = [
 ];
 const BEGIN_EFFECT = PHOTO_EFFECTS[0];
 let chosenEffect = BEGIN_EFFECT;
-const imgPreview = document.querySelector('.img-upload__preview img');
-const effectPhoto = document.querySelector('.effects');
-const sliderElement = document.querySelector('.effect-level__slider');
-const sliderContainerElement = document.querySelector('.img-upload__effect-level');
-const effectLevelElement = document.querySelector('.effect-level__value');
-
-const renderSlider = () => sliderContainerElement.classList.remove('hidden');
-const hideSlider = () => sliderContainerElement.classList.add('hidden');
 const isStartValue = () => chosenEffect === BEGIN_EFFECT;
-
 const updateSlider = () => {
   sliderElement.noUiSlider.updateOptions({
     range: {
