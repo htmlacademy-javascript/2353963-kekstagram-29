@@ -1,0 +1,118 @@
+const SHOWNCOMMENT = 5;
+const urlPicture = document.querySelector('.big-picture__img img');
+const descriptionPicture = document.querySelector('.big-picture__img img');
+const likesCount = document.querySelector('.likes-count');
+const comentsCount = document.querySelector('.comments-count');
+const socialCaption = document.querySelector('.social__caption');
+const bigPicture = document.querySelector('.big-picture');
+const commentTemplate = document.querySelector('#comment').content.querySelector('.social__comment');
+const closePhoto = document.querySelector('.big-picture__cancel');
+const commentStorage = document.querySelector('.social__comments');
+const commentsShownCountElement = document.querySelector('.social__comment-count');
+const commentsPartCountElement = commentsShownCountElement.querySelector('.comments-part');
+const commentsCountElement = commentsShownCountElement.querySelector('.comments-count');
+const commentsLoad = document.querySelector('.comments-loader');
+const STEP = 25;
+const MIN = 25;
+const MAX = 100;
+const START = 100;
+const loadElement = document.querySelector('.img-upload');
+const lessenBtnElement = loadElement.querySelector('.scale__control--smaller');
+const raisingBtnElement = loadElement.querySelector('.scale__control--bigger');
+const scaleElement = loadElement.querySelector('.scale__control--value');
+const imgElement = loadElement.querySelector('.img-upload__preview img');
+
+const createComment = (comment)=>{
+  const commentObject = commentTemplate.cloneNode(true);
+  commentObject.querySelector('.social__picture').src = comment.avatar;
+  commentObject.querySelector('.social__picture').alt = comment.name;
+  commentObject.querySelector('.social__text').textContent = comment.message;
+  return commentObject;
+};
+
+const renderComments = (comments) => {
+  let commentShown = 0;
+  return ()=> {
+    commentShown += SHOWNCOMMENT;
+    if(commentShown >= comments.length){
+      commentsLoad .classList.add('hidden');
+      commentShown = comments.length;
+    } else {
+      commentsLoad .classList.remove('hidden');
+    }
+    const listFragment = document.createDocumentFragment();
+    for(let i = 0; i < commentShown;i++){
+      const comment = createComment(comments[i]);
+      listFragment.appendChild(comment);
+    }
+    commentStorage.innerHTML = '';
+    commentStorage.appendChild(listFragment);
+    commentsPartCountElement.textContent = commentShown;
+    commentsCountElement.textContent = comments.length;
+  };
+};
+
+const renderBigPicture = (item) => {
+  urlPicture.src = item.url;
+  descriptionPicture.alt = item.description;
+  likesCount.textContent = item.likes;
+  comentsCount.textContent = item.comments.length;
+  socialCaption.textContent = item.description;
+  const onCommentsLoaderClick = renderComments(item.comments);
+
+  commentStorage.comments = onCommentsLoaderClick(item.comments);
+  commentsLoad .addEventListener('click',onCommentsLoaderClick);
+};
+const hideBigPicture = () =>{
+  bigPicture.classList.add('hidden');
+  document.body.classList.remove('modal-open');
+  document.removeEventListener('keydown',onDocumentKeydown);
+};
+closePhoto.addEventListener('click',hideBigPicture);
+function onDocumentKeydown(evt){
+  if (evt.key === 'Escape') {
+    evt.preventDefault();
+    hideBigPicture();
+  }
+}
+
+const openBigPicture = ()=>{
+  bigPicture.classList.remove('hidden');
+  commentsShownCountElement.classList.remove('hidden');
+  commentsCountElement.classList.remove('hidden');
+  document.body.classList.add('modal-open');
+  document.addEventListener('keydown',onDocumentKeydown);
+};
+const scaleImg = (value)=>{
+  scaleElement.value = `${value}%`;
+  imgElement.style.transform = `scale(${value / 100})`;
+};
+const onlessenBtnClick = ()=>{
+  const parseValue = parseInt(scaleElement.value, 10);
+  let newValue = parseValue - STEP;
+  if (newValue < MIN) {
+    newValue = MIN;
+  } else {
+    scaleImg(newValue);
+  }
+
+};
+
+const onraisingBtnClick = ()=>{
+  const parseValue = parseInt(scaleElement.value, 10);
+  let newValue = parseValue + STEP;
+  if (newValue > MAX) {
+    newValue = MAX;
+  } else {
+    scaleImg(newValue);
+  }
+};
+const resetScale = () =>scaleImg(START);
+
+const initScaleElement = ()=>{
+  resetScale();
+  lessenBtnElement.addEventListener('click',onlessenBtnClick);
+  raisingBtnElement.addEventListener('click',onraisingBtnClick);
+};
+export{resetScale,initScaleElement,renderBigPicture,bigPicture,openBigPicture,renderComments};
+
