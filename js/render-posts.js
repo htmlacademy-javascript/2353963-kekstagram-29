@@ -1,6 +1,12 @@
 import{renderBigPicture,openBigPicture} from './big-picture.js';
 const picContainer = document.querySelector('.pictures');
 const picTemplate = document.querySelector('#picture').content.querySelector('.picture');
+const FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
+const fileChooser = document.querySelector('.img-upload__input[type=file]');
+const previewBigImg = document.querySelector('.img-upload__preview img');
+const form = document.querySelector('.img-upload__form');
+const previewEffects = form.querySelectorAll('.effects__preview');
+
 const renderPosts = (pictures) =>{
   const listFragment = document.createDocumentFragment();
   pictures.forEach((item) =>{
@@ -19,13 +25,6 @@ const renderPosts = (pictures) =>{
   });
   picContainer.appendChild(listFragment);
 };
-export {renderPosts};
-
-const FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
-const fileChooser = document.querySelector('.img-upload__input[type=file]');
-const previewBigImg = document.querySelector('.img-upload__preview img');
-const form = document.querySelector('.img-upload__form');
-const previewEffects = form.querySelectorAll('.effects__preview');
 
 const setPreviewPictureLoader = () => {
   fileChooser.addEventListener('change', () => {
@@ -44,4 +43,4 @@ const setPreviewPictureLoader = () => {
   });
 };
 
-export {setPreviewPictureLoader};
+export {setPreviewPictureLoader,renderPosts};

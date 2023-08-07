@@ -5,7 +5,6 @@ const TIMEOUT = 500;
 
 const filterForm = document.querySelector('.img-filters__form');
 const imgFilters = document.querySelector('.img-filters');
-
 const startFilter = document.querySelector('#filter-default');
 const randomFilter = document.querySelector('#filter-random');
 const discussedFilter = document.querySelector('#filter-discussed');
@@ -13,7 +12,6 @@ const filterButtons = document.querySelectorAll('.img-filters__button');
 
 const removePictures = () =>
   document.querySelectorAll('.picture').forEach((picture) => picture.remove());
-
 
 const showFilters = () => imgFilters.classList.remove('img-filters--inactive');
 const sortPictures = (pictures, sortButton) => {
