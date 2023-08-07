@@ -28,7 +28,7 @@ const debounce = (callback, timeoutDelay) => {
     timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
   };
 };
-// Функция 1  проверки длины строки
+
 const controlStringLenght = (str,length)=>str.length <= length;
 
 export {controlStringLenght,showMessage,debounce};

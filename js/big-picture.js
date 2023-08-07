@@ -1,6 +1,9 @@
-// модуль по работе с  фотографией
 const SHOWNCOMMENT = 5;
-
+const urlPicture = document.querySelector('.big-picture__img img');
+const descriptionPicture = document.querySelector('.big-picture__img img');
+const likesCount = document.querySelector('.likes-count');
+const comentsCount = document.querySelector('.comments-count');
+const socialCaption = document.querySelector('.social__caption');
 const bigPicture = document.querySelector('.big-picture');
 const commentTemplate = document.querySelector('#comment').content.querySelector('.social__comment');
 const closePhoto = document.querySelector('.big-picture__cancel');
@@ -50,11 +53,11 @@ const renderComments = (comments) => {
 };
 
 const renderBigPicture = (item) => {
-  bigPicture.querySelector('.big-picture__img img').src = item.url;
-  bigPicture.querySelector('.big-picture__img img').alt = item.description;
-  bigPicture.querySelector('.likes-count').textContent = item.likes;
-  bigPicture.querySelector('.comments-count').textContent = item.comments.length;
-  bigPicture.querySelector('.social__caption').textContent = item.description;
+  urlPicture.src = item.url;
+  descriptionPicture.alt = item.description;
+  likesCount.textContent = item.likes;
+  comentsCount.textContent = item.comments.length;
+  socialCaption.textContent = item.description;
   const onCommentsLoaderClick = renderComments(item.comments);
 
   commentStorage.comments = onCommentsLoaderClick(item.comments);
